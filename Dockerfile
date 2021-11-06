@@ -1,0 +1,15 @@
+# PASSO 1: FAZENDO BUILD
+FROM golang:alpine AS builder
+# DEFININDO DIRETORIO DE TRABALHO
+WORKDIR /go/src/app
+# COPIANDO ARQUIVO LOCAL PARA FILESYSTEM
+COPY ./main.go .
+# GERA BINARIO main
+RUN go build -ldflags="-w -s" main.go
+
+# PASSO 2: GERANDO IMAGEM
+FROM scratch
+# COPIANDO BINARIO GERADO NO PASSO 1
+COPY --from=builder /go/src/app/main .
+# EXECUTANDO BINARIO
+ENTRYPOINT [ "./main" ]
