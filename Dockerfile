@@ -4,7 +4,7 @@ FROM golang:alpine AS builder
 WORKDIR /go/src/app
 # COPIANDO ARQUIVO LOCAL PARA FILESYSTEM
 COPY ./main.go .
-# GERA BINARIO main
+# GERANDO BINARIO main
 RUN go build -ldflags="-w -s" main.go
 
 # PASSO 2: GERANDO IMAGEM
